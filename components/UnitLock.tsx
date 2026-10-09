@@ -1,0 +1,4 @@
+import type {ReactNode} from 'react';
+export function LockIcon(){return <svg className="lock-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3" stroke="currentColor" strokeWidth="1.8"/><rect x="4" y="10" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="1.8"/><circle cx="12" cy="15" r="1.3" fill="currentColor"/><path d="M12 16v2" stroke="currentColor" strokeWidth="1.8"/></svg>}
+export function LockedUnitLabel({children,className=''}:{children:ReactNode;className?:string}){return <span className={`locked-unit-label ${className}`} aria-disabled="true"><LockIcon/><span>{children}<small>Coming soon · Locked</small></span></span>}
+export function UnitLockOverlay(){return <div className="unit-lock-overlay" aria-hidden="true"><span><LockIcon/></span></div>}
