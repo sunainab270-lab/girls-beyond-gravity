@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import ts from 'typescript';
+const source=await readFile(new URL('../lib/auth/security.ts',import.meta.url),'utf8');
+const js=ts.transpile(source,{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}).replace("from 'bcryptjs'",`from '${import.meta.resolve('bcryptjs')}'`);
+const security=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
+test('password hashes are salted, verify correctly, and reject a wrong password',async()=>{const password='A long test passphrase';const a=await security.hashPassword(password),b=await security.hashPassword(password);assert.notEqual(a,b);assert.ok(!a.includes(password));assert.equal(await security.verifyPassword(password,a),true);assert.equal(await security.verifyPassword('Wrong passphrase',a),false);});
+test('validates email and password bounds without silently truncating Unicode',()=>{assert.equal(security.normalizeEmail(' Student@Example.COM '),'student@example.com');assert.equal(security.validEmail('not-an-email'),false);assert.equal(security.validPassword('short'),false);assert.equal(security.validPassword('A long test passphrase'),true);assert.equal(security.validPassword('🌌'.repeat(19)),false);});
+test('session identifiers are random and hashed, and cookies are private',async()=>{const a=security.randomToken(),b=security.randomToken();assert.match(a,/^[a-f0-9]{64}$/);assert.notEqual(a,b);assert.notEqual(await security.tokenHash(a),a);const request=new Request('https://example.com/api/auth/sign-in');const cookie=security.cookie(request,'gbg_session',a,600);for(const setting of ['HttpOnly','SameSite=Lax','Secure','Path=/','Max-Age=600'])assert.ok(cookie.includes(setting));});
+test('rejects cross-origin and missing-origin mutation requests',()=>{assert.equal(security.sameOrigin(new Request('https://example.com/api/auth/sign-in',{headers:{Origin:'https://evil.example'}})),false);assert.equal(security.sameOrigin(new Request('https://example.com/api/auth/sign-in')),false);assert.equal(security.sameOrigin(new Request('https://example.com/api/auth/sign-in',{headers:{Origin:'https://example.com'}})),true);});
