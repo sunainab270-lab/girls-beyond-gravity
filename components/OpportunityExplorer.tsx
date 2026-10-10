@@ -2,13 +2,13 @@
 
 import { useMemo, useState } from "react";
 
-type Difficulty = "Low" | "Medium" | "High" | "Very High";
+type Difficulty = 1 | 2 | 3 | 4 | 5;
 type Delivery = "Remote" | "Hybrid" | "In-person" | "Remote / In-person";
 
 type Opportunity = {
   added: string;
   citizenship: string;
-  competitiveness: Difficulty;
+  difficulty: Difficulty;
   country: string;
   deadline: string;
   deadlineMonth: string;
@@ -65,7 +65,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Usually 10 weeks for summer; other sessions vary.",
     url: "https://www.nasa.gov/learning-resources/internship-programs/",
-    competitiveness: "Very High",
+    difficulty: 4,
     recommendedFor: ["High School", "Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -96,7 +96,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "March",
     duration: "Multi-semester rotational internship; varies by appointment.",
     url: "https://www.nasa.gov/learning-resources/internship-programs/",
-    competitiveness: "Very High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -127,7 +127,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "March",
     duration: "10 weeks.",
     url: "https://www.jpl.nasa.gov/edu/internships/apply/jpl-summer-internship-program/",
-    competitiveness: "Very High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -158,7 +158,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "November",
     duration: "Typically 3-6 months.",
     url: "https://www.esa.int/About_Us/Careers_at_ESA/Student_internships_frequently_asked_questions",
-    competitiveness: "High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -189,7 +189,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "December",
     duration: "Usually one year, with possible extension depending on programme rules.",
     url: "https://www.esa.int/About_Us/Careers_at_ESA",
-    competitiveness: "Very High",
+    difficulty: 4,
     recommendedFor: ["Graduate"],
     womenOnly: false,
     paid: true,
@@ -220,7 +220,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Scholarship award for college expenses.",
     url: "https://aiaa.org/get-involved/k-12-students/scholarships/",
-    competitiveness: "High",
+    difficulty: 3,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: true,
@@ -251,7 +251,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "January",
     duration: "Scholarship award cycle.",
     url: "https://aiaa.org/get-involved/university-students/undergraduate-scholarships-graduate-awards/",
-    competitiveness: "High",
+    difficulty: 3,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -282,7 +282,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "October",
     duration: "Summer internship plus fellowship programming.",
     url: "https://www.brookeowensfellowship.org/apply",
-    competitiveness: "Very High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate"],
     womenOnly: true,
     paid: true,
@@ -313,7 +313,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "October",
     duration: "Summer placement plus fellowship support.",
     url: "https://www.pgsfellowship.org/apply",
-    competitiveness: "Very High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate"],
     womenOnly: false,
     paid: true,
@@ -344,7 +344,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Scholarship award cycle.",
     url: "https://matthewisakowitzfellowship.squarespace.com/scholarship",
-    competitiveness: "High",
+    difficulty: 3,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -375,7 +375,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "October",
     duration: "Scholarship award cycle.",
     url: "https://www.wai.org/scholarships",
-    competitiveness: "High",
+    difficulty: 3,
     recommendedFor: ["High School", "Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -406,7 +406,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Scholarship award cycle.",
     url: "https://swe.org/apply-for-a-swe-scholarship/",
-    competitiveness: "High",
+    difficulty: 3,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: true,
     paid: true,
@@ -437,7 +437,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "December",
     duration: "1-5 years of funding depending on degree plan and service agreement.",
     url: "https://www.smartscholarship.org/",
-    competitiveness: "Very High",
+    difficulty: 5,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -468,7 +468,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "March",
     duration: "One academic year award; possible renomination.",
     url: "https://www.astronautscholarship.org/programs/astronaut-scholarship/",
-    competitiveness: "Very High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate"],
     womenOnly: false,
     paid: true,
@@ -499,7 +499,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "November",
     duration: "Scholarship award cycle.",
     url: "https://www.spaceclub.org/scholarship/",
-    competitiveness: "High",
+    difficulty: 4,
     recommendedFor: ["High School", "Undergraduate"],
     womenOnly: false,
     paid: true,
@@ -530,7 +530,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "April",
     duration: "6 weeks.",
     url: "https://www.nasa.gov/goddard/stem/space-club-scholars-program/",
-    competitiveness: "Medium",
+    difficulty: 2,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: false,
@@ -561,7 +561,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Scholarship award cycle.",
     url: "https://legacy.vtol.org/education/vertical-flight-foundation-scholarships/vff-scholarship-application-process",
-    competitiveness: "High",
+    difficulty: 3,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -592,7 +592,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "March",
     duration: "Scholarship award cycle.",
     url: "https://www.sae.org/participate/scholarships",
-    competitiveness: "Medium",
+    difficulty: 3,
     recommendedFor: ["High School", "Undergraduate"],
     womenOnly: false,
     paid: true,
@@ -623,7 +623,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "November",
     duration: "About 10 weeks to 3 months during summer.",
     url: "https://www.daad.de/rise/en/rise-germany/",
-    competitiveness: "High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate"],
     womenOnly: false,
     paid: true,
@@ -654,7 +654,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "April",
     duration: "Flexible project lengths during summer.",
     url: "https://summerofcode.withgoogle.com/get-started",
-    competitiveness: "High",
+    difficulty: 5,
     recommendedFor: ["High School", "Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -685,7 +685,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "May",
     duration: "Scholarship award cycle.",
     url: "https://ieee-aess.org/awards/education-awards/engineering-scholarship",
-    competitiveness: "Medium",
+    difficulty: 3,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -716,7 +716,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "November",
     duration: "2-day hackathon.",
     url: "https://www.spaceappschallenge.org/",
-    competitiveness: "Medium",
+    difficulty: 3,
     recommendedFor: ["High School", "Undergraduate", "Graduate"],
     womenOnly: false,
     paid: false,
@@ -747,7 +747,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "March",
     duration: "Summer course/program.",
     url: "https://bwsi.mit.edu/faq/",
-    competitiveness: "High",
+    difficulty: 5,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: false,
@@ -778,7 +778,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Research season plus international fair.",
     url: "https://www.societyforscience.org/isef/",
-    competitiveness: "Very High",
+    difficulty: 5,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: true,
@@ -809,7 +809,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "September",
     duration: "Nine-month challenge cycle.",
     url: "https://www.nasa.gov/learning-resources/nasa-human-exploration-rover-challenge/",
-    competitiveness: "High",
+    difficulty: 5,
     recommendedFor: ["High School", "Undergraduate"],
     womenOnly: false,
     paid: false,
@@ -840,7 +840,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Academic-year design competition.",
     url: "https://blueskies.nianet.org/",
-    competitiveness: "High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -871,7 +871,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Design cycle varies by year.",
     url: "https://www.nasa.gov/nasas-big-idea-challenge/",
-    competitiveness: "High",
+    difficulty: 5,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -902,7 +902,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "January",
     duration: "Semester-style online academy.",
     url: "https://www.lspace.asu.edu/",
-    competitiveness: "Medium",
+    difficulty: 3,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: false,
@@ -933,7 +933,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "November",
     duration: "School-year challenge.",
     url: "https://www.futureengineers.org/nasatechrise",
-    competitiveness: "Medium",
+    difficulty: 3,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: true,
@@ -964,7 +964,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "January",
     duration: "School-year project and competition.",
     url: "https://www.esa.int/Education/CanSat",
-    competitiveness: "Medium",
+    difficulty: 4,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: false,
@@ -995,7 +995,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "April",
     duration: "Flexible school-year challenge.",
     url: "https://mooncampchallenge.org/",
-    competitiveness: "Medium",
+    difficulty: 2,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: false,
@@ -1026,7 +1026,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "June",
     duration: "Short activity.",
     url: "https://www.clubforfuture.org/missions/",
-    competitiveness: "Low",
+    difficulty: 1,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: false,
@@ -1057,7 +1057,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "January",
     duration: "School-year competition season.",
     url: "https://www.firstinspires.org/robotics/frc",
-    competitiveness: "Medium",
+    difficulty: 4,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: false,
@@ -1088,7 +1088,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Essay contest cycle.",
     url: "https://www.engineergirl.org/128750/EngineerGirl-Writing-Contest",
-    competitiveness: "Medium",
+    difficulty: 2,
     recommendedFor: ["High School"],
     womenOnly: false,
     paid: true,
@@ -1119,7 +1119,7 @@ const opportunities: Opportunity[] = [
     deadlineMonth: "February",
     duration: "Summer or semester internship depending on role.",
     url: "https://aerospace.org/careers/students",
-    competitiveness: "High",
+    difficulty: 4,
     recommendedFor: ["Undergraduate", "Graduate"],
     womenOnly: false,
     paid: true,
@@ -1135,7 +1135,7 @@ const levelOptions = ["High School", "Undergraduate", "Graduate"];
 const countryOptions = [...new Set(opportunities.map((item) => item.country))].sort();
 const deadlineMonths = [...new Set(opportunities.map((item) => item.deadlineMonth))].sort();
 const deliveryOptions: Delivery[] = ["Remote", "Hybrid", "In-person", "Remote / In-person"];
-const rank: Record<Difficulty, number> = { Low: 1, Medium: 2, High: 3, "Very High": 4 };
+const difficultyLabels: Record<Difficulty, string> = {1: "Light preparation", 2: "Some preparation", 3: "Moderate preparation", 4: "Substantial preparation", 5: "Extensive preparation"};
 
 const toggle = (current: string[], value: string) =>
   current.includes(value) ? current.filter((item) => item !== value) : [...current, value];
@@ -1197,8 +1197,8 @@ export function OpportunityExplorer({ preview = false }: { preview?: boolean }) 
         );
       })
       .sort((a, b) => {
-        if (sort === "Most Competitive") return rank[b.competitiveness] - rank[a.competitiveness];
-        if (sort === "Least Competitive") return rank[a.competitiveness] - rank[b.competitiveness];
+        if (sort === "Highest Difficulty") return b.difficulty - a.difficulty;
+        if (sort === "Lowest Difficulty") return a.difficulty - b.difficulty;
         if (sort === "Highest Funding") return b.fundingValue - a.fundingValue;
         if (sort === "Recently Added") return b.added.localeCompare(a.added);
         if (sort === "Alphabetical") return a.name.localeCompare(b.name);
@@ -1218,10 +1218,12 @@ export function OpportunityExplorer({ preview = false }: { preview?: boolean }) 
         <label>
           Sort by
           <select onChange={(event) => setSort(event.target.value)} value={sort}>
-            {["Closest Deadline", "Most Competitive", "Least Competitive", "Highest Funding", "Recently Added", "Alphabetical"].map((option) => <option key={option}>{option}</option>)}
+            {["Closest Deadline", "Highest Difficulty", "Lowest Difficulty", "Highest Funding", "Recently Added", "Alphabetical"].map((option) => <option key={option}>{option}</option>)}
           </select>
         </label>
       </div>
+
+      <p className="difficulty-scale-note">Difficulty is an estimated preparation and application-effort rating: 1 = light, 2 = some, 3 = moderate, 4 = substantial, 5 = extensive. It does not predict your chance of acceptance.</p>
 
       <div className="opportunity-layout">
         {!preview ? (
@@ -1297,7 +1299,10 @@ function OpportunityCards({ expanded, records, setExpanded }: { expanded: string
                 <small>{item.organization}</small>
                 <h3>{item.name}</h3>
               </div>
-              <span className={`difficulty difficulty-${item.competitiveness.toLowerCase().replace(/\s+/g, "-")}`}>{item.competitiveness}</span>
+              <span className="opportunity-difficulty" aria-label={`Difficulty ${item.difficulty} out of 5: ${difficultyLabels[item.difficulty]}`} title={difficultyLabels[item.difficulty]}>
+                <span className="difficulty-caption">Difficulty <strong>{item.difficulty}/5</strong></span>
+                <span className="difficulty-points" aria-hidden="true">{[1,2,3,4,5].map(point=><span key={point} className={point<=item.difficulty?"difficulty-point filled":"difficulty-point"}/>)}</span>
+              </span>
             </div>
             <p>{item.description}</p>
             <div className="opportunity-tags">
