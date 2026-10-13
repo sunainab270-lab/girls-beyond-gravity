@@ -1,3 +1,4 @@
+import { LessonMarker } from "./LessonProgress";
 import { LockedUnitLabel } from "./UnitLock";
 import Link from "next/link";
 import { apUnitNumber, isUnitAvailable, type apCourses } from "@/lib/data";
@@ -26,18 +27,13 @@ export function CourseSidebar({
           </Link> : <LockedUnitLabel>Unit {unitIndex + 1}{apUnitNumber(course.slug,unitIndex) !== unitIndex+1 ? ` · AP ${apUnitNumber(course.slug,unitIndex)}` : ""}: {unit.title}</LockedUnitLabel>}
           {isUnitAvailable(unit) && <ul>
             {unit.lessons.map((lesson) => {
-              const marker =
-                lesson.slug === currentLessonSlug
-                  ? "→"
-                  : "○";
-
               return (
               <li key={lesson.slug}>
                 <Link
                   className={lesson.slug === currentLessonSlug ? "active" : ""}
                   href={`/ap-physics/${course.slug}/${unit.slug}/${lesson.slug}`}
                 >
-                  <span aria-hidden="true">{marker}</span>
+                  <LessonMarker id={`${course.slug}/${unit.slug}/${lesson.slug}`} current={lesson.slug === currentLessonSlug} />
                   {lesson.title}
                 </Link>
               </li>

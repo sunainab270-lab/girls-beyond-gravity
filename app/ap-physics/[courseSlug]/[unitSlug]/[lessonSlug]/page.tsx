@@ -1,3 +1,4 @@
+import { LessonCompletion } from "@/components/LessonProgress";
 import { getUnitOne } from "@/lib/unitOne";
 import { UnitOneLesson } from "@/components/UnitOneLesson";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -110,6 +111,8 @@ export default async function LessonPage({
             <><h2>Lesson coming soon</h2><p>This topic is included in the AP course map. Its full lesson, worked examples, and practice have not been released yet.</p></>
 
           )}
+
+          {(newLesson || isTopic11 || isTopic12 || isTopic13 || isTopic14 || isTopic15 || isUnit2Topic) && <LessonCompletion id={`${course.slug}/${unit.slug}/${lesson.slug}`} />}
 
           <aside className="tutor-panel">
             <small>AI Study Assistant</small>

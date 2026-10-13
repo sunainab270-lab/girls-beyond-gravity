@@ -182,7 +182,7 @@ function createCompleteUnit2Topic(title: string, summary: string, estimatedTime 
     slug: slugifyTopic(title),
     title,
     estimatedTime,
-    status: "Complete lesson",
+    status: "Available",
     summary,
     vocabulary: [],
     equations: [],
@@ -223,7 +223,7 @@ export const apCourses = [
             slug: "scalars-vectors-one-dimension",
             title: "Scalars and Vectors in One Dimension",
             estimatedTime: "35-45 minutes",
-            status: "Content available",
+            status: "Available",
             difficulty: "Introductory",
             skills: [
               "Creating representations",
@@ -246,7 +246,7 @@ export const apCourses = [
             slug: "displacement-velocity-acceleration",
             title: "Displacement, Velocity, and Acceleration",
             estimatedTime: "55-70 minutes",
-            status: "Content available",
+            status: "Available",
             difficulty: "Foundational",
             skills: [
               "Calculations",
@@ -287,7 +287,7 @@ export const apCourses = [
             slug: "representing-motion",
             title: "Representing Motion",
             estimatedTime: "50-65 minutes",
-            status: "Complete lesson",
+            status: "Available",
             skills: [
               "Creating Representations",
               "Graph Interpretation",
@@ -320,7 +320,7 @@ export const apCourses = [
             slug: "reference-frames-relative-motion",
             title: "Reference Frames and Relative Motion",
             estimatedTime: "45-60 minutes",
-            status: "Complete lesson",
+            status: "Available",
             skills: [
               "Creating Representations",
               "Mathematical Reasoning",
@@ -357,7 +357,7 @@ export const apCourses = [
             slug: "vectors-motion-two-dimensions",
             title: "Vectors and Motion in Two Dimensions",
             estimatedTime: "70-90 minutes",
-            status: "Complete lesson",
+            status: "Available",
             skills: [
               "Creating Representations",
               "Vector Reasoning",

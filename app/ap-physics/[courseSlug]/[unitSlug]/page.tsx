@@ -1,3 +1,4 @@
+import { LessonStatus } from "@/components/LessonProgress";
 import { LockIcon } from "@/components/UnitLock";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CourseSidebar } from "@/components/CourseSidebar";
@@ -84,7 +85,7 @@ export default async function UnitPage({
                     <span className="unit-number">
                       {`AP Topic ${apNumber}.${index + 1}`}
                     </span>
-                    <span className="status-pill">{lesson.status}</span>
+                    <LessonStatus id={`${course.slug}/${unit.slug}/${lesson.slug}`} />
                   </div>
                   <h3>{lesson.title}</h3>
                   <p>{lesson.summary}</p>

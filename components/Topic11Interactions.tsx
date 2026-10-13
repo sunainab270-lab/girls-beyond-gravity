@@ -404,11 +404,20 @@ export function VectorBuilder() {
 export function MasteryCheck() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [complete, setComplete] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.localStorage.getItem("bg-topic-1-1-complete") === "true",
-  );
+  const [complete, setComplete] = useState(false);
+  useEffect(() => {
+    const sync = () => {
+      try { setComplete(window.localStorage.getItem("bg-topic-1-1-complete") === "true"); }
+      catch { setComplete(false); }
+    };
+    sync();
+    window.addEventListener("gbg-lesson-progress", sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener("gbg-lesson-progress", sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
   const score = useMemo(
     () => masteryQuestions.filter((question) => answers[question.id] === question.answer).length,
     [answers],
@@ -419,6 +428,7 @@ export function MasteryCheck() {
   const markComplete = () => {
     window.localStorage.setItem("bg-topic-1-1-complete", "true");
     window.localStorage.setItem("bg-topic-1-1-mastery-score", String(score));
+    window.dispatchEvent(new Event("gbg-lesson-progress"));
     setComplete(true);
   };
 
@@ -491,7 +501,7 @@ export function MasteryCheck() {
           <button className="button secondary" type="button" onClick={markComplete}>
             Mark Topic Complete
           </button>
-          {complete ? <p className="notice">Topic completion saved for this session.</p> : null}
+          {complete ? <p className="notice">Topic completion saved in this browser.</p> : null}
         </div>
       ) : null}
     </section>
